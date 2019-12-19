@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Form from "./Form";
+import EntryForm from "./Form";
 import Member from "./Member";
 import data from "./data";
 import { Container, Row, Col } from "reactstrap";
@@ -19,7 +19,7 @@ function App() {
           <Member Member={members} />
         </Row>
         <Col>
-          <Form addNewPerson={addNewPerson} />
+          <EntryForm addNewPerson={addNewPerson} />
         </Col>
       </div>
     </Container>
