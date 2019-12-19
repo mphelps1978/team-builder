@@ -1,36 +1,28 @@
 import React, { useState } from "react";
 import Form from "./Form";
 import Member from "./Member";
+import data from "./data";
+import { Container, Row, Col } from "reactstrap";
 
 function App() {
-  // first set state for the form
-  const [member, setMember] = useState([
-    {
-      id: 1,
-      name: "Michael Phelps",
-      email: "mike@someemail.com",
-      role: "FrontEnd Engineer",
-    },
-  ]);
-  // declare a function that will set the values for the inputs and then create a new item in the object for a new member
+  const [members, setMembers] = useState(data);
 
-  const addNewMember = member => {
-    const newMember = {
-      id: Date.now(),
-      name: member.name,
-      email: member.email,
-      role: member.role,
-    };
-    setMember([...member, newMember]);
+  const addNewPerson = person => {
+    setMembers([...members, person]);
   };
 
   return (
-    <div className="App">
-      <h1>Team List</h1>
-      <Form addNewMember={addNewMember} />
-      <Member member={member} />
-    </div>
+    <Container>
+      <div>
+        <h1>Let's Build a Team!</h1>
+        <Row>
+          <Member Member={members} />
+        </Row>
+        <Col>
+          <Form addNewPerson={addNewPerson} />
+        </Col>
+      </div>
+    </Container>
   );
 }
-
 export default App;

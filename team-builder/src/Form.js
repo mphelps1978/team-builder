@@ -1,71 +1,69 @@
 import React, { useState } from "react";
+import { Button, Card } from "reactstrap";
 
 const Form = props => {
-  // console.log("form props", props);
-
-  // setting an empty State for the form
   const [member, setMember] = useState({
     name: "",
-    email: "",
     role: "",
+    email: "",
   });
 
-  // When the submit button is pressed, we need to stop the page from redirecting, and then add the new member to the array, and finally clear out the form
-  const submitForm = event => {
-    event.preventDefault();
-    setMember(member);
-    //   setMember({
-    //     name: "",
-    //     email: "",
-    //     role: "",
-    //      });
+  const changeHandler = event => {
+    setMember({ ...member, [event.target.name]: event.target.value });
   };
 
-  // In the background, we want to update state, so that the information entered remains accessable
-  const handleChanges = e => {
-    console.log("The Member Changes: ", member);
-    setMember({
+  const submitForm = event => {
+    event.preventDefault();
+    const newMember = {
       ...member,
-      [e.target.name]: e.target.value,
-    });
+      id: Date.now(),
+    };
+
+    props.addNewPerson(newMember);
+    setMember({ name: "", role: "", email: "" });
   };
-  //Finally, let's render out our form
+
   return (
-    <div>
-      <form onSubmit={submitForm}>
-        <label>
-          Member Name:
-          <input
-            id="name"
-            type="text"
-            name="name"
-            onChange={handleChanges}
-            value={member.name}
-          />
-        </label>
-        <label>
-          Email:
-          <input
-            id="email"
-            name="email"
-            type="email"
-            onChange={handleChanges}
-            value={member.email}
-          />
-        </label>
-        <label>
-          <select id="role" name="role">
-            <option value="">Select Role</option>
-            <option value="stakeholder">Stakeholder</option>
-            <option value="projectlead">Project Lead</option>
-            <option value="designer">Designer</option>
-            <option value="fe_engineer">Frontend Engineer</option>
-            <option value="be_engineer">Backend Engineer</option>
-          </select>
-        </label>
-        <button type="submit">Add Member</button>
-      </form>
-    </div>
+    <form onSubmit={submitForm}>
+      <h1>Add a new team member below: </h1>
+      <br />
+      <Card></Card>
+      <label htmlFor="name">Name: </label>
+
+      <input
+        type="text"
+        name="name"
+        onChange={changeHandler}
+        value={member.name}
+      />
+
+      <br />
+      <br />
+
+      <label htmlFor="email">Email: </label>
+
+      <input
+        type="text"
+        name="email"
+        onChange={changeHandler}
+        value={member.email}
+      />
+      <br />
+      <br />
+
+      <label htmlFor="role">Role: </label>
+
+      <input
+        type="text"
+        name="role"
+        onChange={changeHandler}
+        value={member.role}
+      />
+
+      <br />
+
+      <Button color="danger">Add New Teammate!!</Button>
+    </form>
   );
 };
 
